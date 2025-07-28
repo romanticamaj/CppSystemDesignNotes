@@ -50,17 +50,17 @@ std::initializer_list<std::string> empty = {};
 
 ## 與相似概念的比較
 
-| 特性 | std::initializer_list | 傳統數組 | std::vector | std::array |
-|------|----------------------|----------|------------|------------|
-| 大小固定 | 是 | 是 | 否 | 是 |
-| 動態分配 | 否（通常） | 否 | 是 | 否 |
-| 可修改元素 | 否 | 是 | 是 | 是 |
-| 知道自身大小 | 是 | 否 | 是 | 是 |
-| 支持迭代器 | 是 | 否（直接） | 是 | 是 |
-| 初始化語法 | `{1, 2, 3}` | `{1, 2, 3}` 或 `[3] = {1, 2, 3}` | `{1, 2, 3}` 或 構造函數 | `{1, 2, 3}` |
-| 主要用途 | 初始化和參數傳遞 | 固定大小數據 | 動態大小集合 | 固定大小集合 |
-| 開銷 | 極小 | 無 | 中等 | 極小 |
-| C++11 引入 | 是 | 否 | 否 | 是 |
+| 特性         | std::initializer_list | 傳統數組                         | std::vector             | std::array   |
+| ------------ | --------------------- | -------------------------------- | ----------------------- | ------------ |
+| 大小固定     | 是                    | 是                               | 否                      | 是           |
+| 動態分配     | 否（通常）            | 否                               | 是                      | 否           |
+| 可修改元素   | 否                    | 是                               | 是                      | 是           |
+| 知道自身大小 | 是                    | 否                               | 是                      | 是           |
+| 支持迭代器   | 是                    | 否（直接）                       | 是                      | 是           |
+| 初始化語法   | `{1, 2, 3}`           | `{1, 2, 3}` 或 `[3] = {1, 2, 3}` | `{1, 2, 3}` 或 構造函數 | `{1, 2, 3}`  |
+| 主要用途     | 初始化和參數傳遞      | 固定大小數據                     | 動態大小集合            | 固定大小集合 |
+| 開銷         | 極小                  | 無                               | 中等                    | 極小         |
+| C++11 引入   | 是                    | 否                               | 否                      | 是           |
 
 ## 使用範例
 
@@ -84,34 +84,34 @@ void print_values(std::initializer_list<int> values) {
 int main() {
     // 使用初始化列表初始化容器
     std::vector<int> numbers = {1, 2, 3, 4, 5};
-    
+
     std::cout << "Vector elements: ";
     for (int num : numbers) {
         std::cout << num << " ";
     }
     std::cout << std::endl;
-    
+
     // 直接傳遞初始化列表給函數
     print_values({10, 20, 30, 40, 50});
-    
+
     // 創建並使用初始化列表變量
     std::initializer_list<std::string> names = {"Alice", "Bob", "Charlie"};
-    
+
     std::cout << "Names: ";
     for (const auto& name : names) {
         std::cout << name << " ";
     }
     std::cout << std::endl;
-    
+
     // 使用初始化列表進行賦值
     numbers = {100, 200, 300};
-    
+
     std::cout << "Updated vector: ";
     for (int num : numbers) {
         std::cout << num << " ";
     }
     std::cout << std::endl;
-    
+
     return 0;
 }
 ```
@@ -128,26 +128,26 @@ int main() {
 class IntContainer {
 private:
     std::vector<int> data;
-    
+
 public:
     // 初始化列表構造函數
     IntContainer(std::initializer_list<int> list) : data(list) {
         std::cout << "Constructed with " << list.size() << " elements\n";
     }
-    
+
     // 使用初始化列表的賦值運算符
     IntContainer& operator=(std::initializer_list<int> list) {
         data = list;
         std::cout << "Assigned " << list.size() << " elements\n";
         return *this;
     }
-    
+
     // 添加元素的方法也可以使用初始化列表
     void add_elements(std::initializer_list<int> list) {
         data.insert(data.end(), list.begin(), list.end());
         std::cout << "Added " << list.size() << " elements\n";
     }
-    
+
     // 顯示內容
     void display() const {
         std::cout << "Container contents: ";
@@ -156,7 +156,7 @@ public:
         }
         std::cout << std::endl;
     }
-    
+
     // 獲取元素數量
     size_t size() const {
         return data.size();
@@ -167,19 +167,19 @@ int main() {
     // 使用初始化列表構造
     IntContainer container = {1, 2, 3, 4, 5};
     container.display();
-    
+
     // 使用初始化列表賦值
     container = {10, 20, 30};
     container.display();
-    
+
     // 使用初始化列表添加元素
     container.add_elements({40, 50, 60});
     container.display();
-    
+
     // 空的初始化列表
     IntContainer empty = {};
     std::cout << "Empty container size: " << empty.size() << std::endl;
-    
+
     return 0;
 }
 ```
@@ -195,7 +195,7 @@ int main() {
 class Matrix {
 private:
     std::vector<std::vector<int>> data;
-    
+
 public:
     // 使用嵌套初始化列表構造
     Matrix(std::initializer_list<std::initializer_list<int>> lists) {
@@ -203,7 +203,7 @@ public:
             data.push_back(std::vector<int>(row));
         }
     }
-    
+
     // 顯示矩陣內容
     void display() const {
         std::cout << "Matrix contents:\n";
@@ -223,16 +223,16 @@ int main() {
         {4, 5, 6},
         {7, 8, 9}
     };
-    
+
     matrix.display();
-    
+
     // 標準庫容器也支持嵌套初始化列表
     std::vector<std::vector<int>> nested_vector = {
         {10, 20},
         {30, 40, 50},
         {60}
     };
-    
+
     std::cout << "\nNested vector contents:\n";
     for (const auto& row : nested_vector) {
         for (int value : row) {
@@ -240,7 +240,7 @@ int main() {
         }
         std::cout << std::endl;
     }
-    
+
     return 0;
 }
 ```
@@ -258,7 +258,7 @@ template<typename T>
 void process_list(std::initializer_list<T> list) {
     std::cout << "Processing list of " << typeid(T).name() << " with "
               << list.size() << " elements: ";
-    
+
     for (const auto& item : list) {
         std::cout << item << " ";
     }
@@ -270,22 +270,22 @@ int main() {
     auto int_list = {1, 2, 3, 4, 5};  // std::initializer_list<int>
     auto double_list = {1.1, 2.2, 3.3};  // std::initializer_list<double>
     auto string_list = {"hello", "world"};  // std::initializer_list<const char*>
-    
+
     // 顯示類型和內容
     std::cout << "int_list type: " << typeid(int_list).name() << std::endl;
     std::cout << "double_list type: " << typeid(double_list).name() << std::endl;
     std::cout << "string_list type: " << typeid(string_list).name() << std::endl;
-    
+
     // 使用模板函數處理不同類型的列表
     process_list(int_list);
     process_list(double_list);
     process_list(string_list);
-    
+
     // 直接傳遞初始化列表給模板函數
     process_list({100, 200, 300});
     process_list({3.14, 2.71});
     process_list<std::string>({"C++", "11", "initializer", "list"});
-    
+
     return 0;
 }
 ```
@@ -295,24 +295,27 @@ int main() {
 ### 適合使用初始化列表的情況
 
 1. **容器初始化**：為容器提供初始元素：
+
    ```cpp
    std::vector<int> numbers = {1, 2, 3, 4, 5};
    std::map<std::string, int> scores = {{"Alice", 95}, {"Bob", 87}, {"Charlie", 92}};
    ```
 
 2. **函數參數**：接受可變數量的同類型參數：
+
    ```cpp
    void process_values(std::initializer_list<int> values) {
        for (int val : values) {
            // 處理每個值
        }
    }
-   
+
    process_values({1, 2, 3});
    process_values({10, 20, 30, 40, 50});
    ```
 
 3. **自定義類型構造函數**：使類支持列表初始化：
+
    ```cpp
    class CustomContainer {
    public:
@@ -320,11 +323,12 @@ int main() {
            // 使用 values 初始化容器
        }
    };
-   
+
    CustomContainer container = {1, 2, 3, 4};
    ```
 
 4. **返回多個值**：函數返回多個同類型值：
+
    ```cpp
    std::initializer_list<int> get_factors(int n) {
        // 計算 n 的因數
@@ -335,52 +339,57 @@ int main() {
    ```
 
 5. **配置選項**：提供配置或選項列表：
+
    ```cpp
    void configure_app(std::initializer_list<std::string> options) {
        for (const auto& option : options) {
            apply_option(option);
        }
    }
-   
+
    configure_app({"--verbose", "--log-level=debug", "--output=file.txt"});
    ```
 
 ### 不適合使用初始化列表的情況
 
 1. **需要修改元素**：初始化列表中的元素是只讀的：
+
    ```cpp
    std::initializer_list<int> values = {1, 2, 3};
    // values.begin()[0] = 10;  // 錯誤：不能修改元素
-   
+
    // 替代方案：使用 vector
    std::vector<int> mutable_values = {1, 2, 3};
    mutable_values[0] = 10;  // 正確
    ```
 
 2. **異構數據**：初始化列表要求所有元素類型相同：
+
    ```cpp
    // 不能直接使用初始化列表存儲不同類型
    // std::initializer_list<???> mixed = {1, "hello", 3.14};  // 錯誤
-   
+
    // 替代方案：使用 tuple 或 variant
    auto mixed = std::make_tuple(1, "hello", 3.14);
    ```
 
 3. **動態添加元素**：初始化列表大小固定：
+
    ```cpp
    std::initializer_list<int> fixed = {1, 2, 3};
    // fixed.push_back(4);  // 錯誤：不支持添加元素
-   
+
    // 替代方案：使用 vector
    std::vector<int> dynamic = {1, 2, 3};
    dynamic.push_back(4);  // 正確
    ```
 
 4. **大量數據**：初始化列表通常存儲在編譯期分配的內存中：
+
    ```cpp
    // 不適合非常大的數據集
    // std::initializer_list<int> huge = {1, 2, ..., 1000000};  // 可能導致編譯問題
-   
+
    // 替代方案：動態生成
    std::vector<int> large_data;
    for (int i = 1; i <= 1000000; ++i) {
@@ -389,18 +398,96 @@ int main() {
    ```
 
 5. **需要長期存儲**：初始化列表只是底層數組的視圖：
+
    ```cpp
    std::initializer_list<int> get_values() {
        return {1, 2, 3};  // 危險：返回的列表引用可能已失效的數據
    }
-   
+
    // 替代方案：返回 vector
    std::vector<int> get_values_safe() {
        return {1, 2, 3};  // 安全：返回的是完整的副本
    }
    ```
 
-### 最佳實踐
+## 常見陷阱 (Common Pitfalls)
+
+### 在條件運算符中使用大括號初始化
+
+一個常見的陷阱是試圖在條件（三元）運算符 `? :` 的分支中直接使用大括號 `{}` 初始化列表。這會導致編譯錯誤，因為大括號初始化列表本身沒有類型。
+
+條件運算符要求其第二和第三個運算數具有相同的類型，或者可以轉換為一個共同的類型。然而，像 `{1, 2, 3}` 這樣的表達式在被賦值或傳遞給函數之前，並沒有內在的類型。編譯器無法推斷出一個共同的類型，因此操作失敗。
+
+**錯誤範例：**
+
+```cpp
+#include <vector>
+#include <initializer_list>
+
+int main() {
+    bool condition = true;
+
+    // 錯誤：無法從 {1, 2, 3} 和 {4, 5, 6} 推斷出共同類型
+    // std::vector<int> my_vector = condition ? {1, 2, 3} : {4, 5, 6}; // 編譯失敗
+
+    // 同樣適用於 std::initializer_list
+    // std::initializer_list<int> my_list = condition ? {1, 2, 3} : {4, 5, 6}; // 編譯失敗
+
+    return 0;
+}
+```
+
+**問題分析：**
+
+編譯器看到 `condition ? {1, 2, 3} : {4, 5, 6}` 時，它試圖確定 `?:` 表達式的結果類型。由於 `{1, 2, 3}` 和 `{4, 5, 6}` 都只是 "braced-init-list"，它們本身沒有類型，編譯器無法繼續。這與 `condition ? 1 : 2.0` 不同，在後者中，編譯器可以找到一個共同的類型 `double`。
+
+**解決方案：**
+
+要解決這個問題，您必須在條件運算符中使用它們之前，顯式地將大括號初始化列表轉換為一個具體的類型。最直接的方法是創建 `std::initializer_list` 的實例。
+
+**正確範例：**
+
+```cpp
+#include <vector>
+#include <initializer_list>
+#include <iostream>
+
+void print_vector(const std::vector<int>& vec) {
+    for (int i : vec) {
+        std::cout << i << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    bool condition = true;
+
+    // 正確：顯式創建 std::initializer_list 對象
+    std::vector<int> my_vector = condition ? std::initializer_list<int>{1, 2, 3}
+                                           : std::initializer_list<int>{4, 5, 6};
+
+    std::cout << "Vector created: ";
+    print_vector(my_vector); // 輸出: 1 2 3
+
+    // 或者，可以先賦值給一個變量
+    std::initializer_list<int> chosen_list;
+    if (condition) {
+        chosen_list = {10, 20, 30};
+    } else {
+        chosen_list = {40, 50, 60};
+    }
+    std::vector<int> another_vector = chosen_list;
+
+    std::cout << "Another vector: ";
+    print_vector(another_vector); // 輸出: 10 20 30
+
+    return 0;
+}
+```
+
+這個陷阱突顯了 C++ 中類型推導的一個重要細節。雖然大括號初始化非常方便，但它們的 "無類型" 特性在某些上下文中會帶來限制。在這些情況下，顯式指定類型是確保代碼正確編譯的關鍵。
+
+## 最佳實踐
 
 - 優先使用初始化列表來初始化容器和自定義類型
 - 為自定義容器類型提供接受初始化列表的構造函數
