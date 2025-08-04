@@ -30,7 +30,7 @@
 
 > **深入探討與程式碼範例**：
 > 關於雙緩衝區的詳細設計、從錯誤範例到穩健實作的演進，請參考：
-> **➡️ [`./02_Double_Buffer_Implementation.md`](./02_Double_Buffer_Implementation.md)**
+> **➡️ [`./04-Double_Buffer_Implementation.md`](./04-Double_Buffer_Implementation.md)**
 
 ---
 
@@ -49,7 +49,7 @@
 
 > **深入探討與程式碼範例**：
 > 關於三緩衝區的無鎖設計原理、C++ Atomics 實作細節，請參考：
-> **➡️ [`./04_Triple_Buffer_Concept.md`](./04_Triple_Buffer_Concept.md)**
+> **➡️ [`./05-Triple_Buffer_Concept.md`](./05-Triple_Buffer_Concept.md)**
 
 ---
 

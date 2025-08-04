@@ -2,7 +2,7 @@
 
 本文件闡述了實現一個無鎖、**單生產者／單消費者三緩衝區（Single-Producer, Single-Consumer Triple Buffer）** 的核心概念。它著重於如何使用 `std::atomic` 來安全地同步資料，而無需使用互斥鎖（mutex）。
 
-完整的 C++ 實作範例請參考：[`Triple_Buffer.cpp`](./Triple_Buffer.cpp)
+完整的 C++ 實作範例請參考：[`06-Triple_Buffer_Implementation.cpp`](./06-Triple_Buffer_Implementation.cpp)
 
 ---
 

@@ -1,6 +1,6 @@
 # 為無鎖緩衝打造的原子積木 (Atomic Building Blocks)
 
-在 `01_多重緩衝機制概述.md` 中，我們了解到一個天真的、僅使用 `std::mutex` 的雙緩衝實作會阻塞即時執行緒，而無鎖 (lock-free) 設計是高效能的關鍵。
+在 `01-Multi_Buffering_Overview.md` 中，我們了解到一個天真的、僅使用 `std::mutex` 的雙緩衝實作會阻塞即時執行緒，而無鎖 (lock-free) 設計是高效能的關鍵。
 
 本章節將深入探討實現無鎖緩衝區交換的**原子積木 (Atomic Building Blocks)**，聚焦於「為什麼需要它們」以及「如何正確使用它們」。
 
