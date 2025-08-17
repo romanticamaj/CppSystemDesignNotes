@@ -169,6 +169,8 @@ fib_vec.assign(c_array, c_array + 6);
   vec.assign(3, 99); // 結果是 {99, 99, 99}
   ```
 
+  **說明**: `resize` 到一個更小的尺寸時，提供的 `value` (此處為 99) 會被完全忽略，因為沒有新元素需要被創建。`resize` 只在 **擴展** 容器時（即 `new_size > size()`）才會使用提供的 `value` 來填充新增加的元素。
+
 - **陷阱 2：誤用 `assign` 擴展容器**
 
   ```cpp
