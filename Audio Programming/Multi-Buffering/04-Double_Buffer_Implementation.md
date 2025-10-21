@@ -255,3 +255,10 @@ private:
 - **無鎖的代價**：在對延遲極端敏感的場景（例如專業音訊驅動程式），開發者可能會尋求**無鎖 (Lock-Free)** 的解決方案。但這通常需要更複雜的設計（如**三緩衝區**）和對記憶體模型的深刻理解，其複雜性遠高於本例中的 `FlawedDoubleBuffer`。
 
 因此，對於絕大多數應用程式而言，**使用 `Mutex` 和 `Condition Variable` 的穩健設計是實現雙緩衝區的標準、推薦且安全的方式**。
+
+---
+
+## 參考資料
+
+1. [Single producer single consumer data structure with double buffer in C++ - Stack Overflow](https://stackoverflow.com/questions/23666069/single-producer-single-consumer-data-structure-with-double-buffer-in-c)
+2. [Double Buffer - Game Programming Patterns](https://gameprogrammingpatterns.com/double-buffer.html)
