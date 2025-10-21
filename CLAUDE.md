@@ -21,15 +21,18 @@ All content is in Markdown format with occasional C++ code examples. This is pri
 
 - **Audio Programming/**: Deep-dive materials on low-latency audio processing in C++. Covers real-time programming constraints, lock-free algorithms, multi-buffering strategies (double/triple buffering), SIMD optimization, and producer-consumer patterns. Files are numbered (00-13) for sequential reading. The `Multi-Buffering/` subdirectory contains detailed implementation notes and a working triple buffer implementation in C++.
 
-- **CppAlgorithms/**: Structured algorithm reference following a consistent template (Core Concept, Use Cases, C++ Example, Complexity Analysis). Organized into subdirectories: `Sorting/`, `Searching/`, `Numeric/`. See README.md for the template format.
+- **CppDesignConcepts/**: Core C++ design concepts and patterns, organized into specialized subdirectories:
+  - **Algorithm/**: Structured algorithm reference following a consistent template (Core Concept, Use Cases, C++ Example, Complexity Analysis). Organized into subdirectories: `Sorting/`, `Searching/`, `Numeric/`, `String/`.
+  - **Container/**: Notes on STL container usage patterns, particularly `std::vector` operations like `push_back` vs `emplace_back`, `resize` vs `assign`.
+  - **Memory/**: Advanced memory management topics including placement new and custom memory handling.
+  - **Function/**: Function-level optimization topics like tail call optimization.
+  - Top-level files cover cross-cutting design concepts like aggregate initialization and random generation best practices.
 
-- **Container/**: Notes on STL container usage patterns, particularly `std::vector` operations like `push_back` vs `emplace_back`, `resize` vs `assign`.
+- **Software Testing/**: Notes and resources related to software testing methodologies and practices.
 
-- **Memory/**: Advanced memory management topics including placement new and custom memory handling.
+- **Reading/**: Reference materials including books and papers on embedded systems design and software testing.
 
-- **Function/**: Function-level optimization topics like tail call optimization.
-
-- **memory-bank/**: Project context management system (legacy). Contains historical project goals, decisions, and progress tracking for the CppAlgorithms section. This directory tracks the evolution of the algorithm notes collection and can be referenced for understanding the original design intent.
+- **memory-bank/**: Project context management system (legacy). Contains historical project goals, decisions, and progress tracking. This directory tracks the evolution of the knowledge base and can be referenced for understanding the original design intent.
 
 ### Key Characteristics
 
@@ -63,7 +66,7 @@ Based on the memory-bank records, this repository aims to:
 - **Remove verbosity**: Eliminate redundant explanations, excessive examples, and tangential information
 - **Playbook/mindset approach**: Documents should be quick reference guides, not textbooks
 
-When creating or modifying algorithm notes in `CppAlgorithms/`, follow the template structure defined in `CppAlgorithms/README.md`:
+When creating or modifying algorithm notes in `CppDesignConcepts/Algorithm/`, follow this template structure:
 1. **Core Concept**: A brief explanation of the algorithm
 2. **Common Use Cases**: When to use it
 3. **C++ Example**: A clear, concise C++ code snippet
@@ -94,7 +97,7 @@ This repository uses simple git workflow:
 
 ### File Naming
 
-- Use descriptive English names for new files in `CppAlgorithms/`, `Container/`, `Memory/`, `Function/`
+- Use descriptive English names for new files in `CppDesignConcepts/Algorithm/`, `CppDesignConcepts/Container/`, `CppDesignConcepts/Memory/`, `CppDesignConcepts/Function/`
 - Use Traditional Chinese for conceptual overview documents when continuing existing patterns
 - Number files sequentially when order matters (as in `Audio Programming/`)
 - Use hyphens or underscores for multi-word names consistently with existing files in that directory
