@@ -159,9 +159,11 @@ bool binary_search(ForwardIt first, ForwardIt last, const T& value, Compare comp
 **邏輯分析：**
 
 1. `lower_bound` 回傳第一個 `>= value` 的位置
+
    - 保證：`!comp(*first, value)` 為真（即 `*first >= value`）
 
 2. 檢查 `*first == value` 需同時滿足：
+
    - `*first >= value` ✓（已由 lower_bound 保證）
    - `*first <= value` ← 需檢查：`!comp(value, *first)`
 
@@ -229,6 +231,17 @@ int binary_search_closed(const std::vector<int>& arr, int target) {
 2. **簡潔性**：`right = mid` 比 `right = mid - 1` 更直觀
 3. **正確性**：減少 off-by-one 錯誤
 4. **擴展性**：更容易實作 `lower_bound`/`upper_bound` 等變體
+
+### 關於 `set`/`map` 的 `lower_bound`
+
+關聯容器（`set`, `map`）提供成員函數版本的 [`lower_bound()`](OrderedSet_Binary_Search.md)，與泛型算法 [`std::lower_bound()`](OrderedSet_Binary_Search.md) 有重要差異。
+
+**核心差異：**
+
+- `std::lower_bound(set.begin(), set.end(), x)` - ❌ O(n) 複雜度
+- `set.lower_bound(x)` - ⭐ O(log n) 複雜度
+
+詳細分析請參閱 [OrderedSet Binary Search](OrderedSet_Binary_Search.md)。
 
 ## 6. Complexity Analysis
 
