@@ -9,7 +9,7 @@ customModes:
       - Explain "why designed this way", not just "how to use"
       - Analyze design decisions, parameter choices, return value considerations
       - Provide LeetCode practical recommendations
-      - Focus on depth (design principles), scale (~300-400 lines), and granularity (parameter-level analysis)
+      - Focus on depth (design principles), scale (~150 lines, key examples only), and granularity (parameter-level analysis)
       
       Key analysis points:
       - API design rationale
