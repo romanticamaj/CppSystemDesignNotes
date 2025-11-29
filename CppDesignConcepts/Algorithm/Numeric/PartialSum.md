@@ -1,10 +1,10 @@
-# Algorithm: `std::partial_sum`
+# `std::partial_sum` Design Analysis
 
-## 1. Core Concept
+## Core Concept
 
 `std::partial_sum` computes the partial sums (prefix sums) of a range of elements. Each element in the output range contains the sum of all elements from the beginning of the input range up to and including the current position. This is also known as a cumulative sum or running total.
 
-## 2. Common Use Cases
+## Common Use Cases
 
 - Computing prefix sums for range sum queries (very common in LeetCode)
 - Dynamic programming problems involving cumulative values
@@ -12,7 +12,7 @@
 - Image processing (integral images)
 - Efficient range sum calculations in O(1) time after O(n) preprocessing
 
-## 3. C++ Example
+## C++ Example
 
 ```cpp
 #include <numeric>
@@ -59,10 +59,66 @@ int main() {
 }
 ```
 
-## 4. Complexity Analysis
+## Iterator Design Concept
+
+### Third Parameter: Output Iterator
+
+The third parameter of `partial_sum` uses **OutputIterator** design, embodying the input-output separation principle:
+
+```cpp
+template< class InputIt, class OutputIt >
+OutputIt partial_sum(InputIt first, InputIt last, OutputIt d_first);
+```
+
+**Design Advantages:**
+
+- **Flexibility** - Can choose in-place modification or write to a new container
+- **Type Decoupling** - Input and output can use different container types
+- **Stream Output** - Supports direct output to `ostream_iterator`
+
+```cpp
+std::vector<int> nums = {1, 2, 3};
+std::vector<long long> prefix(3);  // Different type
+
+// Write to a different type container
+std::partial_sum(nums.begin(), nums.end(), prefix.begin());
+```
+
+For detailed design analysis, see: [`output_iterator_pattern.md`](../Iterator/output_iterator_pattern.md)
+
+## Complexity Analysis
 
 - **Time Complexity:** O(n) - where n is the number of elements in the range
 - **Space Complexity:** O(1) additional space (if output range is provided), O(n) if creating new container
+
+## Common Pitfalls and Best Practices
+
+### Overflow Risk
+
+When using `std::partial_sum`, accumulation may cause integer overflow:
+
+```cpp
+// Dangerous: may overflow
+std::vector<int> nums = {1000000000, 1000000000, 1000000000};
+std::vector<int> prefix(3);
+std::partial_sum(nums.begin(), nums.end(), prefix.begin());
+// prefix[2] will overflow!
+
+// Safe: use a larger integer type
+std::vector<int> nums = {1000000000, 1000000000, 1000000000};
+std::vector<long long> prefix(3);  // Use long long
+std::partial_sum(nums.begin(), nums.end(), prefix.begin());
+// prefix: {1000000000, 2000000000, 3000000000}
+```
+
+**LeetCode Best Practice:**
+
+```cpp
+// Template: overflow-safe prefix sum
+std::vector<int> nums = {/* ... */};
+std::vector<long long> prefix(nums.size());  // Always use long long
+std::partial_sum(nums.begin(), nums.end(), prefix.begin());
+```
 
 ## LeetCode Applications
 
