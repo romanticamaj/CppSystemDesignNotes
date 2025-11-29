@@ -10,10 +10,10 @@ C++ 中 comparator 不是「比較大小」而已，而是決定排序語義的�
 
 它必須滿足 **Strict Weak Ordering（嚴格弱序）**：
 
-- **非自反性**：`comp(a,a)` 必為 false
-- **反對稱性**
-- **可傳遞性**：`a<b` 且 `b<c` → `a<c`
-- **等價類一致性**
+- **非自反性 (Irreflexivity)**：`comp(a,a)` 必為 false
+- **反對稱性 (Asymmetry)**：若 `comp(a,b)` 為 true，則 `comp(b,a)` 必為 false
+- **可傳遞性 (Transitivity)**：`comp(a,b)` 且 `comp(b,c)` → `comp(a,c)`
+- **等價類一致性 (Transitivity of Equivalence)**：若 `a` 與 `b` 等價（即 `!comp(a,b) && !comp(b,a)`），且 `b` 與 `c` 等價，則 `a` 與 `c` 必等價
 
 違反這些將導致：
 
@@ -27,9 +27,7 @@ C++ 中 comparator 不是「比較大小」而已，而是決定排序語義的�
 
 ## 2. priority_queue 的比較語義（與 sort/map 相反）
 
-這是許多人最常搞錯的概念。
-
-### ✔ 在 `priority_queue` 裡：
+這是許多人最常搞錯的概念。在 `priority_queue` 裡
 
 ```
 comp(a, b) == true  →  a 的優先度比 b 低
@@ -44,7 +42,7 @@ comp(a, b) == true  →  a 的優先度比 b 低
 
 ---
 
-## 3. Comparator 的三種類型
+## 3. Comparator 的實作方式
 
 ### 3.1 Functor（struct operator()）→ 最推薦、企業級常用
 
@@ -68,12 +66,19 @@ priority_queue<T, vector<T>, decltype(cmp)> pq(cmp);
 ```
 
 - 需 `decltype(cmp)`
-- 若是 class-level，需要 `static inline` 成員變數
+- 若是 class-level，需要 `static inline` 成員變數：
+  ```cpp
+  class Solution {
+      static inline auto cmp = [](int a, int b) { return a > b; };
+
+      // 1. Template 參數必須傳入型別：decltype(cmp)
+      // 2. 建構子參數 {cmp}：
+      //    - C++20 前：必須傳入 (lambda 預設無法 default construct)
+      //    - C++20 起：無捕捉 lambda 可 default construct，故可省略 {cmp}
+      std::priority_queue<int, std::vector<int>, decltype(cmp)> pq{cmp};
+  };
+  ```
 - 有 capture 時無法用於容器
-
-### 3.3 函式指標（不推薦）
-
-效能差、不易 inline、一堆限制。
 
 ---
 
@@ -83,8 +88,8 @@ priority_queue<T, vector<T>, decltype(cmp)> pq(cmp);
 
 特別是 priority_queue。
 
-- min-heap → `return a > b;`
 - max-heap → `return a < b;`
+- min-heap → `return a > b;`
 
 ### 心法 2：不要比較等於
 
@@ -118,13 +123,7 @@ return a.second < b.second;
 
 容器中的 comparator 是 const 物件。
 
-### 心法 5：struct comparator 記得分號
-
-```cpp
-struct Cmp { ... };  // ← 必須要
-```
-
-### 心法 6：map/set/sort 的比較語義與 priority_queue 不同
+### 心法 5：map/set/sort 的比較語義與 priority_queue 不同
 
 - `sort/map/set`: comp(a,b)==true → a 排前面
 - `priority_queue`: comp(a,b)==true → a 優先度低
@@ -155,7 +154,7 @@ struct Cmp {
 
 ---
 
-## 6. Template 化（進階技巧）
+## 6. Template 化
 
 ```cpp
 template <typename Key, typename Value>
@@ -169,14 +168,6 @@ struct PairCmp {
     }
 };
 ```
-
-可用於：
-
-- sort
-- map
-- set
-- priority_queue
-- graph algorithms
 
 ---
 
@@ -193,25 +184,7 @@ struct PairCmp {
 
 ---
 
-## 8. 常見錯誤整理（踩雷清單）
-
-### ❌ 在 comparator 裡比較等於
-
-### ❌ 回傳值不符合 strict weak ordering
-
-### ❌ comparator 沒有 const
-
-### ❌ lambda comparator 有 capture
-
-### ❌ priority_queue 語義反過來寫錯
-
-### ❌ 多欄位比較沒有完整順序
-
-### ❌ struct comparator 結尾沒加分號
-
----
-
-## 9. 總結
+## 8. 總結
 
 C++ 的比較器本質上是在定義一個「排序語義」。
 要寫對 comparator，必須理解：
