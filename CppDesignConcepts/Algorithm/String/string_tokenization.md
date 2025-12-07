@@ -83,7 +83,10 @@ auto tokens = tokenize(path, '/');
 
 **關鍵點**：
 
-- `std::getline(stream, str, delimiter)` 讀取到分隔符號前的內容
+- `std::getline(stream, str, delimiter)` 讀取到分隔符號前的內容 (然後把 delimiter 丟掉)
+  - 如果是字串結尾有分隔符號
+    - 若是獨立執行的 geline，那最後一次讀取，會是 str 為空字串
+    - 若使用 while (getline)，他會優雅地離開 while loop，不會進入處理最後一個空字串，但是 str 仍為空字串
 - 連續分隔符號會產生空字串，需手動過濾
 - 預設分隔符號是 `\n`，第三參數可自訂
 

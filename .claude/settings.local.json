@@ -3,7 +3,10 @@
     "allow": [
       "Bash(git mv:*)",
       "Bash(test:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "WRITE",
+      "READ"
     ],
     "deny": [],
     "ask": []

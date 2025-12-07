@@ -51,6 +51,7 @@ string s = to_string(n)  // 數字轉字串
 
 ```cpp
 isdigit(c)   // 是否數字
+isxdigit(c)  // 是否十六進制數字 (0-9, A-F, a-f)
 isalpha(c)   // 是否字母
 isalnum(c)   // 是否字母或數字
 tolower(c) / toupper(c)
@@ -288,6 +289,7 @@ s.back()      // 最後字元
 
 ```cpp
 isdigit(c)    // 是否數字
+isxdigit(c)   // 是否十六進制數字 (0-9, A-F, a-f)
 isalpha(c)    // 是否字母
 isalnum(c)    // 是否字母或數字
 tolower(c) / toupper(c)
